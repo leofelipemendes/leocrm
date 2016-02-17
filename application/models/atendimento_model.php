@@ -36,5 +36,37 @@ class Atendimento_model extends CI_Model{
     function count($table) {
         return $this->db->count_all($table);
     }
+    
+     function getById($id){
+        $this->db->where('sis_id',$id);
+        $this->db->limit(1);
+        return $this->db->get('sistemas')->row();
+    }
+    
+    function edit($table,$data,$fieldID,$ID){
+        $this->db->where($fieldID,$ID);
+        $this->db->update($table, $data);
+
+        if ($this->db->affected_rows() >= 0)
+		{
+			return TRUE;
+		}
+		
+		return FALSE;       
+    }
+    
+    function getAreas($perpage=0,$start=0) {
+        $this->db->select('sistemas.*,configusercall.conf_name');
+        $this->db->from('sistemas');
+        $this->db->join('configusercall','sistemas.sis_screen = configusercall.conf_cod');
+        $this->db->order_by('sistema','asc');
+        $this->db->limit($perpage,$start);
+        
+        $query = $this->db->get();
+        
+        $result = $query->result();
+        return $result;
+        
+    }
 
 }

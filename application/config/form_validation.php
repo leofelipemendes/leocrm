@@ -291,5 +291,15 @@ $config = array('clientes' => array(array(
                                     'label'=>'usuarios_id',
                                     'rules'=>'trim|xss_clean|required'
                                 ))
+                ,
+                'atendimento' => array(array(
+                                    'field'=>'nomeArea',
+                                    'label'=>'&Aacute;rea',
+                                    'rules'=>'required|trim|xss_clean'
+                                ),array(
+                                    'field'=>'email',
+                                    'label'=>'Email',
+                                    'rules'=>'required|trim|valid_email|xss_clean'
+                                ))
 		);
 			   

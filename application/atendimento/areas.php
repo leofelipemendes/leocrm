@@ -24,7 +24,7 @@
                         <th>Tela para abetura de chamados</th>
                         <th>Status</th>
                         <th>Alterar</th>
-                        
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
             <span class="icon">
                 <i class="icon-user"></i>
             </span>
-            <h5>&Aacute;rea</h5>
+            <h5>Clientes</h5>
 
         </div>
 
@@ -59,8 +59,8 @@
                         <th>E-mail</th>
                         <th>Tela para abetura de chamados</th>
                         <th>Status</th>
-                        <th></th>
-                        
+                        <th>Alterar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,25 +69,19 @@
         echo '<tr>';
         echo '<td>' . $r->sis_id . '</td>';
         echo '<td>' . $r->sistema . '</td>';
-        if($r->sis_atende == 1){
+        if($r->sis_status == 1){
             echo '<td> Sim </td>';
         }else{ 
         echo '<td> N&atilde;o </td>';}
         echo '<td>' . $r->sis_email . '</td>';
-        echo '<td>' . $r->conf_name . '</td>';
-        if ($r->sis_status == 0) {
-            echo '<td>INATIVO</td>';            
-        }
-        else{
-            echo '<td>ATIVO</td>';
-        }
-        
+        echo '<td>' . $r->sis_atende . '</td>';
+        echo '<td>' . $r->sis_screen . '</td>';
         echo '<td>';
         
-            echo '<a href="' . base_url() . 'index.php/atendimento/visualizar/' . $r->sis_id . '" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes"><i class="icon-eye-open"></i></a>';
+            echo '<a href="' . base_url() . 'index.php/clientes/visualizar/' . $r->sis_id . '" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes"><i class="icon-eye-open"></i></a>';
         
         
-            echo '<a href="' . base_url() . 'index.php/atendimento/editar/' . $r->sis_id . '" style="margin-right: 1%" class="btn btn-info tip-top" title="Editar Cliente"><i class="icon-pencil icon-white"></i></a>';
+            echo '<a href="' . base_url() . 'index.php/clientes/editar/' . $r->sis_id . '" style="margin-right: 1%" class="btn btn-info tip-top" title="Editar Cliente"><i class="icon-pencil icon-white"></i></a>';
         
         
             echo '<a href="#modal-excluir" role="button" data-toggle="modal" cliente="' . $r->sis_id . '" style="margin-right: 1%" class="btn btn-danger tip-top" title="Excluir Cliente"><i class="icon-remove icon-white"></i></a>';

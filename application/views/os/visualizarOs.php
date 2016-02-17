@@ -6,7 +6,7 @@
                 <span class="icon">
                     <i class="icon-tags"></i>
                 </span>
-                <h5>Ordem de Serviço</h5>
+                <h1>Ordem de Serviço</h1>
                 <div class="buttons">
                     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'eOs')){
                         echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/os/editar/'.$result->idOs.'"><i class="icon-pencil icon-white"></i> Editar</a>'; 
@@ -44,20 +44,20 @@
                                     <td style="width: 25%; padding-left: 0">
                                         <ul>
                                             <li>
-                                                <span><h5>Cliente</h5>
-                                                <span><?php echo $result->nomeCliente?></span><br/>
-                                                <span><?php echo $result->rua?>, <?php echo $result->numero?>, <?php echo $result->bairro?></span><br/>
-                                                <span><?php echo $result->cidade?> - <?php echo $result->estado?></span>
+                                                <h1>Cliente</h1>
+                                                <p><?php echo $result->nomeCliente?></p>
+                                                <p><?php echo $result->rua?>, <?php echo $result->numero?>, <?php echo $result->bairro?></p>
+                                                <p><?php echo $result->cidade?> - <?php echo $result->estado?></p>
                                             </li>
                                         </ul>
                                     </td>
                                     <td style="width: 25%; padding-left: 0">
                                         <ul>
                                             <li>
-                                                <span><h5>Responsável</h5></span>
-                                                <span><?php echo $result->nome?></span> <br/>
-                                                <span>Telefone: <?php echo $result->telefone?></span><br/>
-                                                <span>Email: <?php echo $result->email?></span>
+                                                <h1>Responsável</h1>
+                                                <p><?php echo $result->nome?></p>
+                                                <p>Telefone: <?php echo $result->telefone?></p>
+                                                <p>Email: <?php echo $result->email?></p>
                                             </li>
                                         </ul>
                                     </td>
@@ -72,7 +72,7 @@
 
                     <?php if($result->descricaoProduto != null){?>
                     <hr style="margin-top: 0;">
-                    <h5>Descrição</h5>
+                    <h1>Descrição</h1>
                     <p>
                         <?php echo $result->descricaoProduto?>
                         
@@ -81,21 +81,21 @@
 
                     <?php if($result->defeito != null){?>
                     <hr style="margin-top: 0">
-                    <h5>Defeito</h5>
+                    <h1>Defeito</h1>
                     <p>
                         <?php echo $result->defeito?>
                     </p>
                     <?php }?>
                     <?php if($result->laudoTecnico != null){?>
                     <hr style="margin-top: 0;height: 20px;">
-                    <h5>Laudo Técnico</h5>
+                    <h1>Laudo Técnico</h1>
                     <p>
                         <?php echo $result->laudoTecnico?>
                     </p>
                     <?php }?>
                     <?php if($result->observacoes != null){?>
                     <hr style="margin-top: 0">
-                    <h5>Observações</h5>
+                    <h1>Observações</h1>
                     <p>
                         <?php echo $result->observacoes?>
                     </p>
@@ -165,6 +165,7 @@
                         <h4 style="text-align: right">Valor Total: R$ <?php echo number_format($totalProdutos + $totalServico,2,',','.');?></h4>
 
                     </div>
+					<h4 style="text-align: right">* Os valores para produtos e serviços poderão ser acrescidos em decorrência das anotações técnicas.</h4>
                 </div>
             </div><!--fim do printOs-->
         </div>
@@ -191,50 +192,35 @@
             mywindow.document.write("<link rel='stylesheet' href='<?php echo base_url();?>assets/css/bootstrap-responsive.min.css' />");
             mywindow.document.write("<link rel='stylesheet' href='<?php echo base_url();?>assets/css/matrix-style.css' />");
             mywindow.document.write("<link rel='stylesheet' href='<?php echo base_url();?>assets/css/matrix-media.css' />");
-            mywindow.document.write("</head><body >");
             mywindow.document.write(data);
-            mywindow.document.write('<div style="margin-top: 0;height: 20px;text-align: center;"><h5>Anotações Técnicas</h5></div>');
+            mywindow.document.write('<div style="margin-top: 0;height: 20px;text-align: center;"><h1>Anotações Técnicas</h1></div><br>');
 
-            for(i = 0;i < 6; i++)
+            for(i = 0;i < 10; i++)
             {
-                mywindow.document.write('<div style="margin-top: 0;height: 20px;"><hr /></div>');    
+                mywindow.document.write('<div style="margin-top: 0;height: 30px;"><hr /></div>');    
             }
             
-            mywindow.document.write('<table style="width: 100%; padding-left: 0">');
+            mywindow.document.write('<table style="width: 100%; padding-left:0;">');
                 mywindow.document.write('<tr>');
-                    mywindow.document.write('<td style="width: 50%; padding-left: 0">');
-                        mywindow.document.write('<p>Data Atendimento: ____/____/_____ </p>');
-                        mywindow.document.write('<p>Horario Chegada: ____:____ </p>');
-                        mywindow.document.write('<p>Horario Saida: ____:____ </p>');
+                    mywindow.document.write('<td style="width:50%; padding-left: 0">');
+                        mywindow.document.write('<p style="text-size:18px;">Data Atendimento: ____/____/_____ </p>');
+                        mywindow.document.write('<p style="text-size:18px;">Horario Chegada: ____:____ </p>');
+                        mywindow.document.write('<p style="text-size:18px;">Horario Saida: ____:____ </p>');
                     mywindow.document.write('</td>');
                     mywindow.document.write('<td style="width: 50%; padding-left: 0">');
-                        mywindow.document.write('<p style="text-align: left;">');
-                        mywindow.document.write('_______________________________<br>');
-                        mywindow.document.write('Assinatura Cliente</p>');
-                        mywindow.document.write('<p style="text-align: left;">');
+                        mywindow.document.write('<p style="text-align: left;text-size:18px;">');
+                        mywindow.document.write('_______________________________<br />');
+                        mywindow.document.write('Assinatura Cliente</p><br />');
+                        mywindow.document.write('<p style="text-align: left;text-size:18px;">');
                         mywindow.document.write('_______________________________<br>');
                         mywindow.document.write('Assinatura Técnico</p>');
                     mywindow.document.write('</td>');
-                
-//                mywindow.document.write('<td style="width: 25%; padding-left: 0">');
-//                mywindow.document.write('<p>Data Atendimento: ____/____/_____ </p>');
-//                mywindow.document.write('<p>Horario Chegada: ____:____ </p>');
-//                mywindow.document.write('<p>Horario Saida: ____:____ </p>');
-//                mywindow.document.write('</td>');                   )
-//                mywindow.document.write('<td style="width: 25%; padding-left: 0">');
-//                mywindow.document.write('<p style="text-align: left;">');
-//                mywindow.document.write('_______________________________<br>');
-//                mywindow.document.write('Assinatura Cliente</p><br>');
-//                mywindow.document.write('<p style="text-align: left;">');
-//                mywindow.document.write('_______________________________<br>');
-//                mywindow.document.write('Assinatura Técnico</p>');
-//                mywindow.document.write('</td>');
                 mywindow.document.write('</tr>');
             mywindow.document.write('</table>');
             mywindow.document.write("</body></html>");
 
-            //mywindow.print();
-            //mywindow.close();
+            mywindow.print();
+            mywindow.close();
 
             return true;
         }

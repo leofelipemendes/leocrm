@@ -51,12 +51,17 @@
 
     <li class="<?php if(isset($menuPainel)){echo 'active';};?>"><a href="<?php echo base_url()?>"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
     <!-- inicio atendimento -->
-    <li class="submenu <?php if(isset($menuRelatorios)){echo 'active open';};?>">
+    <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vCliente')){ ?>
+    <li class="submenu <?php if(isset($menuAtendimento)){echo 'active open';};?>">
         <a href="#"><i class="icon icon-list-alt"></i> <span>Atendimento</span> <span class="label"><i class="icon-chevron-down"></i></span></a>
          <ul>
-             <li><a href="<?php echo base_url()?>index.php/atendimento/areas"><?php echo utf8_encode('Áreas');?></a></li>
+             <li><a href="<?php echo base_url()?>index.php/areas/"><?php echo utf8_encode('Áreas');?></a></li>
+          </ul>
+        <ul>
+             <li><a href="<?php echo base_url()?>index.php/problemas/"><?php echo utf8_encode('Problemas');?></a></li>
           </ul>
     </li>
+    <?php } ?>
 
     
     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vCliente')){ ?>

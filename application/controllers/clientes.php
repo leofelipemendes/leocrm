@@ -55,9 +55,6 @@ class Clientes extends CI_Controller {
        	
        	$this->data['view'] = 'clientes/clientes';
        	$this->load->view('tema/topo',$this->data);
-	  
-       
-		
     }
 	
     function adicionar() {

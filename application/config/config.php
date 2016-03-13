@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/mapos';
+$config['base_url']	= 'http://desenvolvimento/mapos';
 
 /*
 |--------------------------------------------------------------------------

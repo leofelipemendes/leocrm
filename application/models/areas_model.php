@@ -79,6 +79,16 @@ class Areas_model extends CI_Model{
         
     }
     
+    function getDropdownAreas() {
+        $this->db->select('sis_id,sistema');
+        $this->db->from('sistemas');
+        $this->db->order_by('sistema');
+        $query = $this->db->get();
+        
+        $result = $query->result();
+        return $result;
+    }
+    
     function getPerfilAbertuira() {
         $this->db->select('conf_cod,conf_name');
         $this->db->from('configusercall');

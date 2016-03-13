@@ -8,7 +8,7 @@
 
 /**
  * Description of problemas
- *
+ * class problemas_model
  * @author Leo
  */
 class Problemas extends CI_Controller{
@@ -18,7 +18,7 @@ class Problemas extends CI_Controller{
         if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
             redirect('mapos/login');
             }
-            $this->load->helper(array('codegen_helper'));
+            $this->load->helper(array('codegen_helper','form'));
             $this->load->model('problemas_model','',TRUE);
             $this->data['menuAtendimento'] = 'Atendimento';
     }
@@ -67,8 +67,93 @@ class Problemas extends CI_Controller{
        	$this->load->view('tema/topo',$this->data);
     }
     
-    function adicionar() {
-        echo 'teste';
+    public function visualizar(){
+
+        $this->data['custom_error'] = '';
+        $this->data['result'] = $this->problemas_model->getById($this->uri->segment(3));
+        $this->data['view'] = 'problemas/visualizar';
+        $this->load->view('tema/topo', $this->data);
+
     }
+    
+    function adicionar() {
+        
+        if(!$this->permission->checkPermission($this->session->userdata('permissao'),'aCliente')){
+           $this->session->set_flashdata('error','Você não tem permissão para adicionar areas.');
+           redirect(base_url());
+        }
+        $this->load->model('areas_model','',TRUE);
+        $this->load->library('form_validation');
+        $this->data['custom_error'] = '';
+
+        if ($this->form_validation->run('problemas') == false) {
+            $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
+        } else {
+            if(!$this->input->post('areaatende') == FALSE){
+            }
+            
+            $data = array(
+                'sistema'    => strtoupper($this->input->post('nomeArea')),
+                'sis_email'  => $this->input->post('email'),
+                'sis_screen' => $this->input->post('screen_name'),
+                'sis_status' => $this->input->post('status'),
+                'sis_atende' => $sis_atende
+            );
+            if ($this->problemas_model->add('problemas', $data) == TRUE) {
+                $this->session->set_flashdata('success','Novo Problema adicionado com sucesso!');
+                redirect(base_url() . 'index.php/problemas/adicionar');
+            } else {
+                $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
+            }
+        }
+        $this->data['slas'] = $this->problemas_model->getSla();
+        $this->data['areas'] = $this->areas_model->getDropdownAreas();
+        $this->data['view'] = 'problemas/adicionarProblemas';
+        $this->load->view('tema/topo', $this->data);
+    }
+    
+    function editar() {
+        
+        if(!$this->permission->checkPermission($this->session->userdata('permissao'),'eCliente')){
+           $this->session->set_flashdata('error','Você não tem permissão para editar as areas.');
+           redirect(base_url());
+        }
+        
+        $this->load->library('form_validation');
+        $this->data['custom_error'] = '';
+
+        if ($this->form_validation->run('atendimento') == false) {
+            $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
+        } else {
+            
+            if(!$this->input->post('areaatende') == FALSE){
+                
+            }
+            
+            $data = array(
+                'sistema'    => strtoupper($this->input->post('nomeArea')),
+                'sis_email'  => $this->input->post('email'),
+                'sis_screen' => $this->input->post('screen_name'),
+                'sis_status' => $this->input->post('status'),
+                'sis_atende' => $sis_atende
+            );
+
+            if ($this->areas_model->edit('problemas', $data, 'sis_id', $this->input->post('sis_id')) == TRUE) {
+                $this->session->set_flashdata('success','&Aacute;rea editada com sucesso!');
+                //redirect(base_url() . 'index.php/clientes/editar/'.$this->input->post('idClientes'));
+                redirect(base_url() . 'index.php/areas/areas');
+            } else {
+                $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro</p></div>';
+            }
+        }
+
+
+        $this->data['result'] = $this->areas_model->getById($this->uri->segment(3));
+        $this->data['perfil'] = $this->areas_model->getPerfilAbertuira();
+        $this->data['view'] = 'areas/editarArea';
+        $this->load->view('tema/topo', $this->data);
+
+    }
+    
     
 }

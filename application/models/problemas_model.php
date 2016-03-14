@@ -77,7 +77,7 @@ class problemas_model extends CI_Model{
         $this->db->order_by('slas_tempo');
         $query = $this->db->get();
         
-        $result = $query->result_array();
+        $result = $query->result();
         return $result;
     }
 }

@@ -20,6 +20,8 @@ class Problemas extends CI_Controller{
             }
             $this->load->helper(array('codegen_helper','form'));
             $this->load->model('problemas_model','',TRUE);
+            $this->load->model('areas_model','',TRUE);
+            
             $this->data['menuAtendimento'] = 'Atendimento';
     }
     
@@ -77,27 +79,23 @@ class Problemas extends CI_Controller{
     }
     
     function adicionar() {
-        
+          
         if(!$this->permission->checkPermission($this->session->userdata('permissao'),'aCliente')){
            $this->session->set_flashdata('error','Você não tem permissão para adicionar areas.');
            redirect(base_url());
         }
-        $this->load->model('areas_model','',TRUE);
+        $this->load->model('problemas_model','',TRUE);
         $this->load->library('form_validation');
         $this->data['custom_error'] = '';
 
         if ($this->form_validation->run('problemas') == false) {
             $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
         } else {
-            if(!$this->input->post('areaatende') == FALSE){
-            }
             
             $data = array(
-                'sistema'    => strtoupper($this->input->post('nomeArea')),
-                'sis_email'  => $this->input->post('email'),
-                'sis_screen' => $this->input->post('screen_name'),
-                'sis_status' => $this->input->post('status'),
-                'sis_atende' => $sis_atende
+                'problema'    => strtoupper($this->input->post('problema')),
+                'prob_area'  => $this->input->post('area'),
+                'prob_alimenta_banco_solucao' => 1
             );
             if ($this->problemas_model->add('problemas', $data) == TRUE) {
                 $this->session->set_flashdata('success','Novo Problema adicionado com sucesso!');
@@ -109,6 +107,7 @@ class Problemas extends CI_Controller{
         $this->data['slas'] = $this->problemas_model->getSla();
         $this->data['areas'] = $this->areas_model->getDropdownAreas();
         $this->data['view'] = 'problemas/adicionarProblemas';
+        //var_dump($_POST) or die();
         $this->load->view('tema/topo', $this->data);
     }
     
